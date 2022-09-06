@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>week -</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            cursor: default;
+        }
+        html, body {
+            margin: unset;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            height: calc(100% - 50px);
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            background-color: hsl(0, 0%, 100%);
+        }
+        h1.week {
+            color: hsl(270, 75%, 50%);
+            line-height: 5px;
+        }
+        h1.week > span:nth-child(1) { opacity: 0.8; }
+        h1.week > span:nth-child(2) {
+            opacity: 1.0;
+            text-decoration: underline;
+        }
+        footer {
+            color: hsl(0, 0%, 50%);
+            font-size: 0.8rem;
+        }
+        footer > a {
+            color: inherit;
+            filter: brightness(0.8);
+            cursor: pointer;
+        }
+        footer > span { font-weight: bold; }
+        h1.displayerror {
+            display: none;
+            text-align: center;
+            font-size: 7.5vw;
+        }
+        @media (max-width: 210px) {
+            h1.displayerror { display: block; }
+            h1.week { display: none; }
+            footer { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="displayerror">a larger display is needed for this webpage to work</h1>
+    <h1 class="week"><span>week</span> <span>a</span></h1>
+    <footer>made by <a href="https://yiu.ch">charles</a> <span>|</span> open <a href="https://github.com/charlesyiu/week-">source</a></footer>
+    <script>
+        (() => {
+            const now = new Date();
+            const onejan = new Date(now.getFullYear(), 0, 1);
+            const week = (Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7) % 2 !== 0) ? "a" : "b";
+            document.querySelector("title").textContent = `week ${week}`;
+            document.querySelector("h1 > span:nth-child(2)").innerText = week;
+        })()
+    </script>
+</body>
+</html>
