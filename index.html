@@ -25,7 +25,7 @@
             background-color: hsl(0, 0%, 100%);
         }
         h1.week {
-            color: hsl(270, 75%, 50%);
+            color: hsl(0, 0%, 0%);
             line-height: 5px;
         }
         h1.week > span:nth-child(1) { opacity: 0.8; }
@@ -61,11 +61,37 @@
     <footer>made by <a href="https://yiu.ch">charles</a> <span>|</span> open <a href="https://github.com/charlesyiu/week-">source</a></footer>
     <script>
         (() => {
+            
+            // week calculation
+
             const now = new Date();
             const onejan = new Date(now.getFullYear(), 0, 1);
             const week = (Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7) % 2 !== 0) ? "a" : "b";
+
+            // title & text
+
             document.querySelector("title").textContent = `week ${week}`;
             document.querySelector("h1 > span:nth-child(2)").innerText = week;
+
+            // favicon
+
+            const canvas = document.createElement("canvas")
+            canvas.width = 32
+            canvas.height = 32
+            const context = canvas.getContext("2d");
+            context.beginPath();
+            context.arc(16, 16, 16, 0, 2 * Math.PI);
+            context.fillStyle = "hsl(0, 0%, 100%)";
+            context.fill();
+            context.font = "bold 24px Verdana, Geneva, Tahoma, sans-serif";
+            context.fillStyle = "hsl(0, 0%, 0%)";
+            context.fillText(week, 8, week === "b" ? 25 : 23); 
+            
+            const link = document.createElement('link');
+            link.type = 'image/x-icon';
+            link.rel = 'shortcut icon';
+            link.href = canvas.toDataURL("image/x-icon");
+            document.getElementsByTagName('head')[0].appendChild(link);
         })()
     </script>
 </body>
